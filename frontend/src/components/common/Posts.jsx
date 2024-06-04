@@ -1,5 +1,5 @@
 import Post from "./post.jsx";
-import PostSkeleton from "../skeletons/PostSkeleton.jsx";
+import PostSkeleton from "../skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 

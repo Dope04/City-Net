@@ -10,8 +10,8 @@ import toast from "react-hot-toast";
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
-	const {mutate: logout} = useMutation({
-		mutationFn: async() => {
+	const { mutate: logout } = useMutation({
+		mutationFn: async () => {
 			try {
 				const res = await fetch("/api/auth/logout", {
 					method: "POST",
@@ -31,9 +31,8 @@ const Sidebar = () => {
 		onError: () => {
 			toast.error("Logout failed");
 		},
-	})
-	
-	const {data: authUser} = useQuery({queryKey: ["authUser"]})
+	});
+	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
 	return (
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
