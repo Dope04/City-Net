@@ -11,6 +11,17 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		pincode: {
+			type: Number,
+		},
+		city: {
+			type: String,
+			required: true,
+		},
+		state: {
+			type: String,
+			required: true,
+		},
 		password: {
 			type: String,
 			required: true,

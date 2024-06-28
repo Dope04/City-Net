@@ -10,6 +10,10 @@ const postSchema = new mongoose.Schema(
 		text: {
 			type: String,
 		},
+		category: {
+			type: String,
+			required: true,
+		},
 		img: {
 			type: String,
 		},

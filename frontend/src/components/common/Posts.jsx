@@ -1,15 +1,19 @@
 import Post from "./post.jsx";
 import PostSkeleton from "../skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 
 const Posts = ({ feedType, username, userId }) => {
+	const [posts, setPosts] = useState([])
 	const getPostEndpoint = () => {
 		switch (feedType) {
-			case "forYou":
-				return "/api/posts/all";
-			case "following":
-				return "/api/posts/following";
+			case "Problems":
+				return "/api/posts/category/Problems";
+			case "Announcements":
+				return "/api/posts/category/Announcements";
+			case "Celebrations":
+				return "/api/posts/category/Celebrations";
 			case "posts":
 				return `/api/posts/user/${username}`;
 			case "likes":
@@ -22,7 +26,7 @@ const Posts = ({ feedType, username, userId }) => {
 	const POST_ENDPOINT = getPostEndpoint();
 
 	const {
-		data: posts,
+		data,
 		isLoading,
 		refetch,
 		isRefetching,
@@ -36,16 +40,35 @@ const Posts = ({ feedType, username, userId }) => {
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
 				}
-
+				setPosts(data)
 				return data;
 			} catch (error) {
 				throw new Error(error);
 			}
-		},
+		}
 	});
+
+	async function getData() {
+		try {
+			const res = await fetch(POST_ENDPOINT);
+			setPosts(await res.json())
+
+			if (!res.ok) {
+				throw new Error(data.error || "Something went wrong");
+			}
+
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
+	useEffect(() => {
+		console.log("here", posts)
+	}, [posts])
 
 	useEffect(() => {
 		refetch();
+		// getData()
 	}, [feedType, refetch, username]);
 
 	return (

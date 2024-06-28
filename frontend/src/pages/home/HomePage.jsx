@@ -4,7 +4,7 @@ import Posts from "../../components/common/Posts.jsx";
 import CreatePost from "./CreatePost.jsx";
 
 const HomePage = () => {
-	const [feedType, setFeedType] = useState("forYou");
+	const [feedType, setFeedType] = useState("Announcements");
 
 	return (
 		<>
@@ -12,22 +12,29 @@ const HomePage = () => {
 				{/* Header */}
 				<div className='flex w-full border-b border-gray-700'>
 					<div
-						className={
-							"flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative"
-						}
-						onClick={() => setFeedType("forYou")}
+						className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
+						onClick={() => setFeedType("Announcements")}
 					>
-						For you
-						{feedType === "forYou" && (
+						Announcements
+						{feedType === "Announcements" && (
 							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
 						)}
 					</div>
 					<div
 						className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
-						onClick={() => setFeedType("following")}
+						onClick={() => setFeedType("Celebrations")}
 					>
-						Following
-						{feedType === "following" && (
+						Celebrations
+						{feedType === "Celebrations" && (
+							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
+						)}
+					</div>
+					<div
+						className='flex justify-center flex-1 p-3 hover:bg-secondary transition duration-300 cursor-pointer relative'
+						onClick={() => setFeedType("Problems")}
+					>
+						Problems
+						{feedType === "Problems" && (
 							<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary'></div>
 						)}
 					</div>

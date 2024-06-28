@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 
 const CreatePost = () => {
 	const [text, setText] = useState("");
+	const [category, setcategory] = useState("");
 	const [img, setImg] = useState(null);
 	const imgRef = useRef(null);
 
@@ -19,14 +20,14 @@ const CreatePost = () => {
 		isError,
 		error,
 	} = useMutation({
-		mutationFn: async ({ text, img }) => {
+		mutationFn: async ({ text, category, img }) => {
 			try {
 				const res = await fetch("/api/posts/create", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ text, img }),
+					body: JSON.stringify({ text: text, category: category, img:img }),
 				});
 				const data = await res.json();
 				if (!res.ok) {
@@ -48,7 +49,7 @@ const CreatePost = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		createPost({ text, img });
+		createPost({ text, category, img });
 	};
 
 	const handleImgChange = (e) => {
@@ -76,6 +77,13 @@ const CreatePost = () => {
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 				/>
+				<label for="category">Choose a category:</label>
+				<select name="category" id="category" onChange={(e)=>setcategory(e.target.value)}>
+					<option></option>
+					<option value="Announcements">Announcement</option>
+					<option value="Celebrations">Celebration</option>
+					<option value="Problems">Problem</option>
+				</select>
 				{img && (
 					<div className='relative w-72 mx-auto'>
 						<IoCloseSharp

@@ -6,11 +6,16 @@ import { v2 as cloudinary } from "cloudinary";
 export const createPost = async (req, res) => {
 	try {
 		const { text } = req.body;
+		const { category } = req.body;
 		let { img } = req.body;
 		const userId = req.user._id.toString();
 
 		const user = await User.findById(userId);
 		if (!user) return res.status(404).json({ message: "User not found" });
+
+		if (!category) {
+			return res.status(400).json({ error: "You must select a category"});
+		}
 
 		if (!text && !img) {
 			return res.status(400).json({ error: "Post must have text or image" });
@@ -24,6 +29,7 @@ export const createPost = async (req, res) => {
 		const newPost = new Post({
 			user: userId,
 			text,
+			category,
 			img,
 		});
 
@@ -229,3 +235,29 @@ export const getUserPosts = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+export const getAllCategory = async (req, res) => {
+	try {
+	  const { type } = req.params;
+	  console.log(req.params)
+	  const posts = await Post.find({ category: type })
+	  .sort({ createdAt: -1 })
+			.populate({
+				path: "user",
+				select: "-password",
+			})
+			.populate({
+				path: "comments.user",
+				select: "-password",
+			});
+		
+	  if (posts.length === 0) {
+		return res.status(200).json([]);
+	  }
+  
+	  res.status(200).json(posts);
+	} catch (error) {
+	  console.log("Error in getAllcategory controller: ", error);
+	  res.status(500).json({ error: "Internal server error" });
+	}
+  };

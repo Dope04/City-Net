@@ -15,20 +15,23 @@ const SignUpPage = () => {
 		email: "",
 		username: "",
 		fullName: "",
+		pincode: "",
+		city: "",
+		state: "",
 		password: "",
 	});
 
 	const queryClient = useQueryClient();
 
 	const { mutate, isError, isPending, error } = useMutation({
-		mutationFn: async ({ email, username, fullName, password }) => {
+		mutationFn: async ({ email, username, fullName, pincode, city, state, password }) => {
 			try {
 				const res = await fetch("/api/auth/signup", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ email, username, fullName, password }),
+					body: JSON.stringify({ email, username, fullName, pincode, city, state, password }),
 				});
 
 				const data = await res.json();
@@ -100,6 +103,39 @@ const SignUpPage = () => {
 								name='fullName'
 								onChange={handleInputChange}
 								value={formData.fullName}
+							/>
+						</label>
+						<label className='input input-bordered rounded flex items-center gap-2 flex-1'>
+							<MdDriveFileRenameOutline />
+							<input
+								type='text'
+								className='grow'
+								placeholder='Pincode'
+								name='pincode'
+								onChange={handleInputChange}
+								value={formData.pincode}
+							/>
+						</label>
+						<label className='input input-bordered rounded flex items-center gap-2 flex-1'>
+							<MdDriveFileRenameOutline />
+							<input
+								type='text'
+								className='grow'
+								placeholder='City'
+								name='city'
+								onChange={handleInputChange}
+								value={formData.city}
+							/>
+						</label>
+						<label className='input input-bordered rounded flex items-center gap-2 flex-1'>
+							<MdDriveFileRenameOutline />
+							<input
+								type='text'
+								className='grow'
+								placeholder='State'
+								name='state'
+								onChange={handleInputChange}
+								value={formData.state}
 							/>
 						</label>
 					</div>
