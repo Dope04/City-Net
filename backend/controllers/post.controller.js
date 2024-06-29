@@ -29,7 +29,6 @@ export const createPost = async (req, res) => {
 		const newPost = new Post({
 			user: userId,
 			text,
-			originalPostOwner,
 			category,
 			img,
 		});
