@@ -1,15 +1,16 @@
 import express from "express";
 import { protectRoute } from "../middleware/protectRoute.js";
 import {
-	commentOnPost,
-	createPost,
-	deletePost,
-	getAllPosts,
-	getFollowingPosts,
-	getLikedPosts,
-	getUserPosts,
-	likeUnlikePost,
-	getAllCategory
+  commentOnPost,
+  createPost,
+  deletePost,
+  getAllPosts,
+  getFollowingPosts,
+  getLikedPosts,
+  getUserPosts,
+  likeUnlikePost,
+  repostPost,
+  getAllCategory
 } from "../controllers/post.controller.js";
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.get("/user/:username", protectRoute, getUserPosts);
 router.post("/create", protectRoute, createPost);
 router.post("/like/:id", protectRoute, likeUnlikePost);
 router.post("/comment/:id", protectRoute, commentOnPost);
+router.post("/repost/:id", protectRoute, repostPost); 
 router.delete("/:id", protectRoute, deletePost);
 router.get("/category/:type", protectRoute, getAllCategory);
 

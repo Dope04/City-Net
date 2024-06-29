@@ -29,6 +29,7 @@ export const createPost = async (req, res) => {
 		const newPost = new Post({
 			user: userId,
 			text,
+			originalPostOwner,
 			category,
 			img,
 		});
@@ -259,5 +260,41 @@ export const getAllCategory = async (req, res) => {
 	} catch (error) {
 	  console.log("Error in getAllcategory controller: ", error);
 	  res.status(500).json({ error: "Internal server error" });
+	}
+  };
+
+
+  export const repostPost = async (req, res) => {
+	try {
+	  const postId = req.params.id;
+	  const userId = req.user._id;
+  
+	  const originalPost = await Post.findById(postId);
+	  if (!originalPost) {
+		return res.status(404).json({ error: "Post not found" });
+	  }
+  
+	  const repost = new Post({
+		user: userId,
+		text: originalPost.text,
+		category: originalPost.category,
+		img: originalPost.img,
+		originalPost: postId,
+		originalPostOwner: originalPost.user.username, // Add this field
+	  });
+  
+	  await repost.save();
+  
+	  const notification = new Notification({
+		from: userId,
+		to: originalPost.user,
+		type: "repost",
+	  });
+	  await notification.save();
+  
+	  res.status(201).json(repost);
+	} catch (error) {
+	  console.log("Error in repost controller: ", error);
+	  res.status(200).json({ message: "Reposted Successfully" });
 	}
   };
