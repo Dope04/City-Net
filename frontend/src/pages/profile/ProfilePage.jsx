@@ -177,12 +177,11 @@ const ProfilePage = () => {
 											<>
 												<FaLink className='w-3 h-3 text-slate-500' />
 												<a
-													href='https://youtube.com/@asaprogrammer_'
+													href=''
 													target='_blank'
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'
 												>
-													{/* Updated this after recording the video. I forgot to update this while recording, sorry, thx. */}
 													{user?.link}
 												</a>
 											</>
