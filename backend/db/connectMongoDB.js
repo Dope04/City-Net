@@ -11,3 +11,5 @@ const connectMongoDB = async () => {
 };
 
 export default connectMongoDB;
+
+//for database connectivity 
