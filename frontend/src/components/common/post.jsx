@@ -178,7 +178,7 @@ const Post = ({ post }) => {
 					</div>
 					<div className='flex flex-col gap-3 overflow-hidden'>
 						<span>{post.text}</span>
-						<span>{}</span>
+						<span>{post.pincode}</span>
 						{post.img && (
 							<img
 								src={post.img}
