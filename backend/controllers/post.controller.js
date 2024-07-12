@@ -7,6 +7,7 @@ export const createPost = async (req, res) => {
 	try {
 		const { text } = req.body;
 		const { category } = req.body;
+		const { pincode } = req.body;
 		let { img } = req.body;
 		const userId = req.user._id.toString();
 
@@ -29,6 +30,7 @@ export const createPost = async (req, res) => {
 		const newPost = new Post({
 			user: userId,
 			text,
+			pincode,
 			category,
 			img,
 		});
@@ -277,6 +279,7 @@ export const getAllCategory = async (req, res) => {
 		user: userId,
 		text: originalPost.text,
 		category: originalPost.category,
+		pincode: originalPost.pincode,
 		img: originalPost.img,
 		originalPost: postId,
 		originalPostOwner: originalPost.user.username, // Add this field
