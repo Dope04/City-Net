@@ -14,6 +14,9 @@ const postSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		pincode: {
+			type: String,
+		},
 		img: {
 			type: String,
 		},
